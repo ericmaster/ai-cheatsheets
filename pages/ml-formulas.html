@@ -381,147 +381,147 @@ code {
 <tbody>
 <tr>
 <td><strong>Regresión Lineal</strong></td>
-<td>$h_\theta(x) = \theta_0 + \theta_1 x + \dots + \theta_n x_n$</td>
+<td>$$h_\theta(x) = \theta_0 + \theta_1 x + \dots + \theta_n x_n$$</td>
 <td>Hipótesis lineal para predicción de salida continua</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
-<td>$J(\theta) = \frac{1}{2m} \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})^2$</td>
+<td>$$J(\theta) = \frac{1}{2m} \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})^2$$</td>
 <td>Función de costo (MSE) en regresión lineal</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td><strong>Regresión Logística</strong></td>
-<td>$h_\theta(x) = \frac{1}{1 + e^{-\theta^T x}}$</td>
+<td>$$h_\theta(x) = \frac{1}{1 + e^{-\theta^T x}}$$</td>
 <td>Función sigmoide que produce probabilidad de clase</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
-<td>$J(\theta) = -\frac{1}{m} \sum [y \log(h_\theta) + (1 - y) \log(1 - h_\theta)]$</td>
+<td>$$J(\theta) = -\frac{1}{m} \sum [y \log(h_\theta) + (1 - y) \log(1 - h_\theta)]$$</td>
 <td>Costo log-loss o binary cross-entropy</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td><strong>Regularización</strong></td>
-<td>$J(\theta) + \lambda \sum_{j=1}^n \theta_j^2$ (L2)</td>
+<td>$$J(\theta) + \lambda \sum_{j=1}^n \theta_j^2$$ (L2)</td>
 <td>Penalización para controlar sobreajuste (Ridge)</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
-<td>$J(\theta) + \lambda \sum_{j=1}^n  | \theta_j|$ (L1)</td>
+<td>$$J(\theta) + \lambda \sum_{j=1}^n  | \theta_j|$$ (L1)</td>
 <td>Penalización que induce sparsidad (Lasso)</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td><strong>PCA</strong></td>
-<td>$Z = U^T X$</td>
+<td>$$Z = U^T X$$</td>
 <td>Proyección de datos sobre componentes principales</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
-<td>$\Sigma = \frac{1}{m} X^T X$</td>
+<td>$$\Sigma = \frac{1}{m} X^T X$$</td>
 <td>Matriz de covarianza para PCA</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td><strong>SVM</strong></td>
-<td>$\min \frac{1}{2} |w|^2 + C \sum \xi_i$</td>
+<td>$$\min \frac{1}{2} |w|^2 + C \sum \xi_i$$</td>
 <td>Objetivo de margen suave con penalización C</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
-<td>$K(x, x') = \exp(-\gamma |x - x'|^2)$</td>
+<td>$$K(x, x') = \exp(-\gamma |x - x'|^2)$$</td>
 <td>Kernel RBF (gaussiano)</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td><strong>k-NN</strong></td>
-<td>$\hat{y}<em>q = \frac{1}{k} \sum</em>{j=1}^k y_{NN_j}$</td>
+<td>$$\hat{y}<em>q = \frac{1}{k} \sum</em>{j=1}^k y_{NN_j}$$</td>
 <td>Promedio de vecinos para regresión</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
-<td>$\text{dist}(x, x') = \sqrt{\sum_{i=1}^n (x_i - x'_i)^2}$</td>
+<td>$$\text{dist}(x, x') = \sqrt{\sum_{i=1}^n (x_i - x'_i)^2}$$</td>
 <td>Distancia euclidiana</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td><strong>Redes Neuronales</strong></td>
-<td>$a^{(l)} = g(W^{(l)} a^{(l-1)} + b^{(l)})$</td>
+<td>$$a^{(l)} = g(W^{(l)} a^{(l-1)} + b^{(l)})$$</td>
 <td>Propagación hacia adelante en capa l</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
-<td>$\sigma(z) = \frac{1}{1 + e^{-z}}$</td>
+<td>$$\sigma(z) = \frac{1}{1 + e^{-z}}$$</td>
 <td>Activación sigmoide</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
-<td>$\text{ReLU}(z) = \max(0, z)$</td>
+<td>$$\text{ReLU}(z) = \max(0, z)$$</td>
 <td>Activación ReLU</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
-<td>$\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}$</td>
+<td>$$\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}$$</td>
 <td>Probabilidades multiclase</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td><strong>Evaluación modelos</strong></td>
-<td>$\text{Accuracy} = \frac{\text{# aciertos}}{\text{total de ejemplos}}$</td>
+<td>$$\text{Accuracy} = \frac{\text{# aciertos}}{\text{total de ejemplos}}$$</td>
 <td>Métrica de exactitud</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
-<td>$\text{Precision} = \frac{TP}{TP + FP}$</td>
+<td>$$\text{Precision} = \frac{TP}{TP + FP}$$</td>
 <td>Proporción de verdaderos positivos entre predichos positivos</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
-<td>$\text{Recall} = \frac{TP}{TP + FN}$</td>
+<td>$$\text{Recall} = \frac{TP}{TP + FN}$$</td>
 <td>Proporción de positivos reales bien clasificados</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
-<td>$F_1 = 2 \cdot \frac{\text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}$</td>
+<td>$$F_1 = 2 \cdot \frac{\text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}$$</td>
 <td>Media armónica entre precisión y recall</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td></td>
-<td>$R^2 = 1 - \frac{SS_{res}}{SS_{tot}}$</td>
+<td>$$R^2 = 1 - \frac{SS_{res}}{SS_{tot}}$$</td>
 <td>Coeficiente de determinación en regresión</td>
 <td></td>
 <td></td>
