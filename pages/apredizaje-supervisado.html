@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>apredizaje-supervisado.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="aprendizaje-supervisado">Aprendizaje Supervisado</h1>
+<h2 id="%F0%9F%94%8D-diagn%C3%B3stico-visual-bias-vs-variance">🔍 Diagnóstico Visual: Bias vs Variance</h2>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th>Curva de Pérdida (CV vs Entrenamiento)</th>
+<th>Sugerencias</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>High Bias (Underfit)</strong></td>
+<td>Ambas curvas altas, pequeña diferencia</td>
+<td>Agregar features, modelo más complejo, disminuir regularización</td>
+</tr>
+<tr>
+<td><strong>High Variance (Overfit)</strong></td>
+<td>Entrenamiento bajo, CV alto</td>
+<td>Regularizar, simplificar modelo, más datos</td>
+</tr>
+<tr>
+<td><strong>Buen Fit</strong></td>
+<td>Ambas bajas, diferencia pequeña</td>
+<td>Ideal, no cambiar</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%F0%9F%9B%A0%EF%B8%8F-t%C3%A9cnicas-de-optimizaci%C3%B3n-de-hiperpar%C3%A1metros">🛠️ Técnicas de Optimización de Hiperparámetros</h2>
+<table>
+<thead>
+<tr>
+<th>Técnica</th>
+<th>Aplicación</th>
+<th>Uso recomendado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>K-Fold CV</strong></td>
+<td>División equilibrada</td>
+<td>Evaluar generalización</td>
+</tr>
+<tr>
+<td><strong>Grid Search / Random Search</strong></td>
+<td>Combinaciones de hiperparámetros</td>
+<td>Selección de hiperparámetros</td>
+</tr>
+<tr>
+<td><strong>Nested CV</strong></td>
+<td>Selección de modelo + evaluación real</td>
+<td>Model selection + tuning</td>
+</tr>
+<tr>
+<td><strong>Early stopping</strong></td>
+<td>Detener entrenamiento antes de overfit</td>
+<td>Redes neuronales</td>
+</tr>
+<tr>
+<td><strong>Regularización (L1/L2)</strong></td>
+<td>Penaliza parámetros grandes</td>
+<td>Evita overfitting</td>
+</tr>
+</tbody>
+</table>
+<p>⚠️ No uses el conjunto de test para ajustar hiperparámetros; usa validación cruzada.</p>
+<h2 id="%F0%9F%A7%AE-algoritmos-de-clasificaci%C3%B3nregresi%C3%B3n-y-cu%C3%A1ndo-usarlos">🧮 Algoritmos de Clasificación/Regresión y Cuándo Usarlos</h2>
+<table>
+<thead>
+<tr>
+<th>Algoritmo</th>
+<th>Problemas comunes</th>
+<th>Pros</th>
+<th>Contras / Riesgos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Regresión Lineal</strong></td>
+<td>Predicción continua, pocos atributos</td>
+<td>Simplicidad, interpretabilidad</td>
+<td>Supone linealidad, sensible a outliers</td>
+</tr>
+<tr>
+<td><strong>Regresión Logística</strong></td>
+<td>Clasificación binaria/multiclase</td>
+<td>Probabilística, rápida</td>
+<td>Inadecuado en relaciones no lineales</td>
+</tr>
+<tr>
+<td><strong>k-NN</strong></td>
+<td>Problemas locales con muchos datos</td>
+<td>No paramétrico, simple</td>
+<td>Costoso computacionalmente, sensible al ruido</td>
+</tr>
+<tr>
+<td><strong>SVM</strong></td>
+<td>Texto, imagen, margen definido</td>
+<td>Robusto, kernel trick para no linealidad</td>
+<td>Escalable difícil, sin probabilidades directas</td>
+</tr>
+<tr>
+<td><strong>Árboles (DT)</strong></td>
+<td>Datos tabulares, interpretabilidad</td>
+<td>Interpretables, rápido</td>
+<td>Sensibles a cambios en datos</td>
+</tr>
+<tr>
+<td><strong>Random Forest</strong></td>
+<td>Datos tabulares, mezcla compleja</td>
+<td>Reducción de varianza, robustez</td>
+<td>Menos interpretables, costoso en memoria</td>
+</tr>
+<tr>
+<td><strong>Boosting (XGBoost)</strong></td>
+<td>Competencias de precisión</td>
+<td>Mejores scores en test</td>
+<td>Overfitting si no se controla regularización</td>
+</tr>
+<tr>
+<td><strong>Redes Neuronales</strong></td>
+<td>Imágenes, audio, texto</td>
+<td>Flexible, autoexplotación de features complejas</td>
+<td>Requieren muchos datos, caja negra, entrenamiento lento</td>
+</tr>
+<tr>
+<td><strong>Transfer Learning</strong></td>
+<td>Imágenes, NLP con pocos datos</td>
+<td>Uso de modelos preentrenados</td>
+<td>Dependiente del dominio fuente y fine-tuning cuidadoso</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%F0%9F%93%8A-selecci%C3%B3n-de-modelo">📊 Selección de Modelo</h2>
+<pre class="hljs"><code><div>TIPO DE PROBLEMA ─► ¿SALIDA?
+                    │
+                    ├─► Continua (Precio, Edad)
+                    │     ├─► Lineal (pocas features) → Regresión Lineal
+                    │     └─► No lineal / compleja → kNN, SVR, NN
+                    │
+                    └─► Discreta (Clase)
+                          ├─► Binaria → Regresión Logística, SVM
+                          ├─► Multiclase → Árboles, SVM, NN
+                          └─► Multietiqueta → Árboles, NN (con salida sigmoid)
+</div></code></pre>
+<h2 id="%F0%9F%94%84-t%C3%A9cnicas-de-validaci%C3%B3n-cruzada">🔄 Técnicas de Validación Cruzada</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Técnica</strong></th>
+<th><strong>Descripción</strong></th>
+<th><strong>Uso recomendado</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hold-out</strong></td>
+<td>División en train/validation/test (ej. 60/20/20)</td>
+<td>Simple, rápida, menos robusta</td>
+</tr>
+<tr>
+<td><strong>K-Fold CV</strong></td>
+<td>Divide en k subconjuntos; cada uno rota como validación</td>
+<td>Balance entre sesgo y varianza (típico: k=5 o 10)</td>
+</tr>
+<tr>
+<td><strong>Stratified K-Fold</strong></td>
+<td>Igual que K-Fold pero conserva proporción de clases</td>
+<td>Clasificación con clases desbalanceadas</td>
+</tr>
+<tr>
+<td><strong>Leave-One-Out (LOOCV)</strong></td>
+<td>Cada muestra se usa una vez como validación</td>
+<td>Muy costoso computacionalmente, alta varianza</td>
+</tr>
+<tr>
+<td><strong>Nested CV</strong></td>
+<td>CV interna para tuning y externa para evaluación</td>
+<td>Evita optimismo al ajustar hiperparámetros</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%F0%9F%93%8A-m%C3%A9tricas-de-evaluaci%C3%B3n">📊 Métricas de Evaluación</h2>
+<h3 id="%F0%9F%94%B9-clasificaci%C3%B3n">🔹 Clasificación</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Métrica</strong></th>
+<th><strong>Fórmula / Significado</strong></th>
+<th><strong>Uso recomendado</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accuracy</td>
+<td>$\frac{TP + TN}{TP + TN + FP + FN}$</td>
+<td>Datasets balanceados</td>
+</tr>
+<tr>
+<td>Precision</td>
+<td>$\frac{TP}{TP + FP}$</td>
+<td>Alta penalización a falsos positivos</td>
+</tr>
+<tr>
+<td>Recall</td>
+<td>$\frac{TP}{TP + FN}$</td>
+<td>Alta penalización a falsos negativos</td>
+</tr>
+<tr>
+<td>F1-Score</td>
+<td>$2 \cdot \frac{precision \cdot recall}{precision + recall}$</td>
+<td>Compromiso entre precision y recall</td>
+</tr>
+<tr>
+<td>ROC-AUC</td>
+<td>Área bajo curva ROC (TPR vs FPR)</td>
+<td>Comparación global de clasificadores</td>
+</tr>
+<tr>
+<td>PR-AUC</td>
+<td>Área bajo curva Precisión vs Recall</td>
+<td>Más útil en datasets desbalanceados</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%F0%9F%94%B9-regresi%C3%B3n">🔹 Regresión</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Métrica</strong></th>
+<th><strong>Fórmula / Significado</strong></th>
+<th><strong>Uso recomendado</strong></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MSE</td>
+<td>$\frac{1}{n} \sum (y_i - \hat{y}_i)^2$</td>
+<td>Penaliza errores grandes, sensible a outliers</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>RMSE</td>
+<td>$\sqrt{MSE}$</td>
+<td>Interpretable en unidades originales</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>MAE</td>
+<td>$\frac{1}{n} \sum |y_i - \hat{y}_i|$</td>
+<td>Más robusto ante outliers</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$R^2$ Score</td>
+<td>$1 - \frac{SS_{res}}{SS_{tot}}$</td>
+<td>Proporción de varianza explicada</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="%F0%9F%A7%AD-gu%C3%ADa-para-toma-de-decisiones">🧭 Guía para Toma de Decisiones</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Escenario</strong></th>
+<th><strong>Decisión recomendada</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Datos balanceados, clasificación binaria</td>
+<td>Usa <strong>accuracy</strong> y <strong>F1</strong> si importa la precisión general</td>
+</tr>
+<tr>
+<td>Datos desbalanceados</td>
+<td>Usa <strong>Precision/Recall</strong>, <strong>F1</strong>, y <strong>PR-AUC</strong></td>
+</tr>
+<tr>
+<td>Regresión con outliers</td>
+<td>Usa <strong>MAE</strong></td>
+</tr>
+<tr>
+<td>Optimización de hiperparámetros</td>
+<td>Usa <strong>K-Fold CV</strong> o <strong>Nested CV</strong></td>
+</tr>
+<tr>
+<td>Comparar modelos con métricas similares</td>
+<td>Usa test estadístico o curvas ROC/PR</td>
+</tr>
+<tr>
+<td>Detectar overfitting</td>
+<td>Comparar métricas entre training y validation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%F0%9F%93%8B-regularizaci%C3%B3n">📋 Regularización</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Aspecto</strong></th>
+<th><strong>L1 (Lasso)</strong></th>
+<th><strong>L2 (Ridge)</strong></th>
+<th><strong>Uso Común / Consejos</strong></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Definición</strong></td>
+<td>Penaliza la suma de valores absolutos de los coeficientes</td>
+<td>Penaliza la suma de los cuadrados de los coeficientes</td>
+<td>Ambas técnicas reducen la complejidad del modelo para evitar overfitting</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Efecto en los coeficientes</strong></td>
+<td>Tiende a hacer que algunos coeficientes sean exactamente cero (selección de variables)</td>
+<td>Reduce los coeficientes sin hacerlos cero</td>
+<td>L1 útil si se busca <strong>sparse model</strong>, L2 útil cuando todas las variables aportan</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Diagnóstico aplicado</strong></td>
+<td>Alto <strong>variance</strong> → aplicar L1 o L2</td>
+<td>Alto <strong>variance</strong> → aplicar L2</td>
+<td>En casos con high bias, usar <strong>menos regularización</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Tipo de problema</strong></td>
+<td>Modelos interpretables con muchas features</td>
+<td>Modelos con colinealidad</td>
+<td>L1 mejor para selección automática de variables, L2 mejor para evitar multicolinealidad</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Modelos aplicables</strong></td>
+<td>Regresión lineal/logística, SVM, NN (con dropout)</td>
+<td>Igual que L1</td>
+<td>Regularización puede usarse en la mayoría de los modelos paramétricos</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>Riesgos si se aplica mal</strong></td>
+<td>Demasiado grande λ puede causar <strong>underfitting</strong></td>
+<td>Igual: penalización excesiva reduce capacidad del modelo</td>
+<td>Usar <strong>curvas de validación</strong> para ajustar λ</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="%F0%9F%A7%AD-sugerencias-pr%C3%A1cticas-para-toma-de-decisiones">🧭 Sugerencias Prácticas para Toma de Decisiones</h3>
+<ul>
+<li>
+<p>¿Demasiado buen rendimiento en entrenamiento pero malo en validación?
+→ Prueba regularización (aumentar λ)</p>
+</li>
+<li>
+<p>¿Modelo muy complejo o lento?
+→ Prueba L1 para seleccionar features relevantes</p>
+</li>
+<li>
+<p>¿Datos altamente correlacionados?
+→ Usa L2 (Ridge) para estabilizar los coeficientes</p>
+</li>
+<li>
+<p>¿Problemas con overfitting en redes neuronales?
+→ Combina L2 con early stopping o usa dropout</p>
+</li>
+</ul>
+<h2 id="%F0%9F%93%8B-redes-neuronales-nn">📋 Redes Neuronales (NN)</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Aspecto</strong></th>
+<th><strong>Descripción / Detalles</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Objetivo principal</strong></td>
+<td>Modelar relaciones complejas y no lineales entre entradas y salidas</td>
+</tr>
+<tr>
+<td><strong>Arquitectura básica</strong></td>
+<td>Capas: entrada → ocultas (hidden layers) → salida<br>Neuronas con funciones de activación</td>
+</tr>
+<tr>
+<td><strong>Función de activación</strong></td>
+<td>ReLU (default en capas ocultas), Sigmoid/Softmax (salidas), Tanh, Leaky ReLU</td>
+</tr>
+<tr>
+<td><strong>Cost function</strong></td>
+<td>- Regresión: MSE<br>- Clasificación binaria: BCE<br>- Multiclase: Categorical Cross-Entropy</td>
+</tr>
+<tr>
+<td><strong>Capacidades clave</strong></td>
+<td>- Aprende representaciones jerárquicas<br>- Adecuado para datos no estructurados (imágenes, texto)</td>
+</tr>
+<tr>
+<td><strong>Técnicas de optimización</strong></td>
+<td>Descenso por gradiente con variantes: SGD, Adam, RMSProp</td>
+</tr>
+<tr>
+<td><strong>Ventajas</strong></td>
+<td>- Flexible y poderosa para datos grandes y complejos<br>- Automatiza extracción de features</td>
+</tr>
+<tr>
+<td><strong>Desventajas</strong></td>
+<td>- Requiere muchos datos<br>- Tiempo de entrenamiento alto<br>- Difícil interpretabilidad</td>
+</tr>
+<tr>
+<td><strong>¿Cuándo usar NN?</strong></td>
+<td>- Visión por computador, NLP, secuencias, relaciones no lineales</td>
+</tr>
+<tr>
+<td><strong>¿Cuándo evitar NN?</strong></td>
+<td>- Pocos datos<br>- Necesidad alta de interpretabilidad<br>- Modelos tabulares simples</td>
+</tr>
+<tr>
+<td><strong>Técnicas de regularización</strong></td>
+<td>Dropout, L2 (weight decay), batch normalization, early stopping</td>
+</tr>
+<tr>
+<td><strong>Diagnóstico común</strong></td>
+<td>- High bias → más neuronas/capas, cambiar activación<br>- High variance → regularización</td>
+</tr>
+<tr>
+<td><strong>Frameworks populares</strong></td>
+<td>TensorFlow, Keras, PyTorch</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%F0%9F%A7%AD-sugerencias-para-la-toma-de-decisiones">🧭 Sugerencias para la Toma de Decisiones</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Situación</strong></th>
+<th><strong>Recomendación</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Muchas features no lineales o datos no estructurados</td>
+<td>Usa NN: puede aprender patrones complejos (imagen, texto, audio)</td>
+</tr>
+<tr>
+<td>Alta precisión en clasificación con pocos datos</td>
+<td>Mejor usar modelos como SVM, Random Forest</td>
+</tr>
+<tr>
+<td>Entrenamiento lento o sin GPU</td>
+<td>Considera modelos más simples (Regresión, Árboles)</td>
+</tr>
+<tr>
+<td>Modelo con sobreajuste</td>
+<td>Aplica dropout, L2, o early stopping</td>
+</tr>
+<tr>
+<td>Predicción secuencial o multietiqueta compleja</td>
+<td>Usa arquitecturas específicas: RNN, LSTM, Transformers</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%F0%9F%93%8B-transfer-learning">📋 Transfer Learning</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Aspecto</strong></th>
+<th><strong>Descripción / Detalles</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Definición</strong></td>
+<td>Técnica que reutiliza un modelo preentrenado en una tarea diferente pero relacionada</td>
+</tr>
+<tr>
+<td><strong>Objetivo</strong></td>
+<td>Aprovechar conocimiento existente para evitar entrenar modelos desde cero</td>
+</tr>
+<tr>
+<td><strong>Arquitecturas comunes</strong></td>
+<td>Imagen: VGG, ResNet, MobileNet, Inception, YOLO<br>Texto: BERT, GPT, RoBERTa</td>
+</tr>
+<tr>
+<td><strong>Tipos de transferencia</strong></td>
+<td>- <strong>Feature Extraction</strong>: usar pesos congelados<br>- <strong>Fine-Tuning</strong>: reentrenar capas</td>
+</tr>
+<tr>
+<td><strong>¿Cuándo usar?</strong></td>
+<td>- Datos limitados<br>- Tarea similar a dataset grande existente (ej. ImageNet, BERT)</td>
+</tr>
+<tr>
+<td><strong>¿Cuándo evitar?</strong></td>
+<td>- Tarea muy diferente a la del modelo fuente<br>- Dominio altamente especializado</td>
+</tr>
+<tr>
+<td><strong>Beneficios clave</strong></td>
+<td>- Ahorro computacional<br>- Menor necesidad de datos<br>- Mejores resultados iniciales</td>
+</tr>
+<tr>
+<td><strong>Requerimientos</strong></td>
+<td>- Modelo base preentrenado<br>- Conjunto de datos etiquetados para tarea destino</td>
+</tr>
+<tr>
+<td><strong>Desventajas</strong></td>
+<td>- Riesgo de <strong>negative transfer</strong> si dominios no coinciden<br>- Sensible a overfitting si no se congela bien</td>
+</tr>
+<tr>
+<td><strong>Decisión entre métodos</strong></td>
+<td>- <strong>Pocos datos</strong> → feature extraction<br>- <strong>Datos medianos y similares</strong> → fine-tuning</td>
+</tr>
+<tr>
+<td><strong>Criterios para ajuste</strong></td>
+<td>- Reducir learning rate en fine-tuning<br>- Evitar sobreajuste al descongelar</td>
+</tr>
+<tr>
+<td><strong>Usos populares</strong></td>
+<td>Clasificación de imágenes, análisis de sentimientos, detección de objetos, clasificación médica</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%F0%9F%A7%AD-sugerencias-para-la-toma-de-decisiones">🧭 Sugerencias para la Toma de Decisiones</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Escenario</strong></th>
+<th><strong>Decisión recomendada</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tienes pocos datos pero tarea similar (e.g. imagenes médicas)</td>
+<td>Usa modelo preentrenado con <strong>feature extraction</strong></td>
+</tr>
+<tr>
+<td>Datos moderados y dominio similar</td>
+<td>Usa <strong>fine-tuning</strong>: descongela capas superiores</td>
+</tr>
+<tr>
+<td>Tu tarea es muy distinta (imagen → audio)</td>
+<td>Transfer learning <strong>no recomendado</strong></td>
+</tr>
+<tr>
+<td>Problemas de sobreajuste en fine-tuning</td>
+<td>Disminuir learning rate, congelar capas iniciales</td>
+</tr>
+<tr>
+<td>Requiere entrenamiento rápido y eficaz</td>
+<td>Transfer learning con capas personalizadas y base congelada</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%F0%9F%93%8B-k-nearest-neighbors-k-nn">📋 k-Nearest Neighbors (k-NN)</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Aspecto</strong></th>
+<th><strong>Descripción / Detalles</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Definición</strong></td>
+<td>Algoritmo basado en memoria: clasifica o estima según los k puntos más cercanos</td>
+</tr>
+<tr>
+<td><strong>Tipo de modelo</strong></td>
+<td>No paramétrico, aprendizaje &quot;perezoso&quot; (lazy learning), sin entrenamiento explícito</td>
+</tr>
+<tr>
+<td><strong>Función de decisión</strong></td>
+<td>- Clasificación: mayoría entre vecinos<br>- Regresión: promedio de los valores de vecinos</td>
+</tr>
+<tr>
+<td><strong>Métricas de distancia</strong></td>
+<td>Euclidiana, Manhattan, Coseno, Pearson — según el dominio y escala</td>
+</tr>
+<tr>
+<td><strong>Preprocesamiento necesario</strong></td>
+<td>Normalización/estandarización de características (para distancias significativas)</td>
+</tr>
+<tr>
+<td><strong>¿Cuándo usar?</strong></td>
+<td>- Dataset pequeño a mediano<br>- Relaciones locales fuertes<br>- Pocas dimensiones</td>
+</tr>
+<tr>
+<td><strong>¿Cuándo evitar?</strong></td>
+<td>- Muchos atributos irrelevantes<br>- Alta dimensionalidad (curse of dimensionality)<br>- Datos escasos o ruidosos</td>
+</tr>
+<tr>
+<td><strong>Ventajas</strong></td>
+<td>Simple, sin suposiciones sobre la distribución, adaptable a problemas multiclase</td>
+</tr>
+<tr>
+<td><strong>Desventajas</strong></td>
+<td>Costoso en predicción, sensible a ruido y escalamiento, requiere almacenamiento completo</td>
+</tr>
+<tr>
+<td><strong>Parámetro clave (k)</strong></td>
+<td>- k pequeño: alta varianza, más sensible<br>- k grande: más estable, pero puede suavizar demasiado</td>
+</tr>
+<tr>
+<td><strong>Pesado vs. No pesado</strong></td>
+<td>Ponderación por distancia mejora rendimiento en datasets con densidad variable</td>
+</tr>
+<tr>
+<td><strong>Uso en regresión</strong></td>
+<td>Promedio de valores de los k vecinos más cercanos</td>
+</tr>
+<tr>
+<td><strong>Uso en clasificación</strong></td>
+<td>Voto de mayoría entre clases de los k vecinos</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%F0%9F%A7%AD-sugerencias-para-la-toma-de-decisiones">🧭 Sugerencias para la Toma de Decisiones</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Escenario</strong></th>
+<th><strong>Decisión recomendada</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pocos datos y relaciones locales simples</td>
+<td>Usa <strong>k-NN con k=3 o 5</strong></td>
+</tr>
+<tr>
+<td>Muchas features no escaladas</td>
+<td>Aplica <strong>escalado de datos</strong> antes de usar k-NN</td>
+</tr>
+<tr>
+<td>Datos ruidosos o outliers</td>
+<td>Usa <strong>k más grande o versión ponderada</strong></td>
+</tr>
+<tr>
+<td>Predicción lenta o muchos datos</td>
+<td>Considera modelos más rápidos: SVM, árboles, regresión logística</td>
+</tr>
+<tr>
+<td>Altas dimensiones (&gt;20-30 features)</td>
+<td>Aplica <strong>PCA</strong> o selección de características</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%F0%9F%93%8B-support-vector-machines-svm">📋 Support Vector Machines (SVM)</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Aspecto</strong></th>
+<th><strong>Descripción / Detalles</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Objetivo</strong></td>
+<td>Encontrar el hiperplano óptimo que <strong>maximiza el margen</strong> entre clases</td>
+</tr>
+<tr>
+<td><strong>Tipo de modelo</strong></td>
+<td>Modelo discriminativo, <strong>margin-based</strong>, eficaz para clasificación lineal y no lineal</td>
+</tr>
+<tr>
+<td><strong>Casos de uso típicos</strong></td>
+<td>Texto, imágenes, bioinformática, clasificación binaria</td>
+</tr>
+<tr>
+<td><strong>¿Lineal o no lineal?</strong></td>
+<td>Lineal: cuando los datos son separables<br>No lineal: usa el <strong>truco del kernel</strong></td>
+</tr>
+<tr>
+<td><strong>Kernel Trick</strong></td>
+<td>Computa productos internos en espacio de alta dimensión sin mapear explícitamente</td>
+</tr>
+<tr>
+<td><strong>Kernels comunes</strong></td>
+<td>- Lineal<br>- Polinomial<br>- RBF (Gaussian)<br>- Sigmoide</td>
+</tr>
+<tr>
+<td><strong>Hiperparámetros clave</strong></td>
+<td>- <strong>C</strong>: penaliza errores (soft margin)<br>- <strong>γ</strong>: ancho de RBF (si se usa RBF)</td>
+</tr>
+<tr>
+<td><strong>¿Cuándo usar?</strong></td>
+<td>- Dataset con pocas features<br>- Margen claro entre clases<br>- Datos no muy grandes</td>
+</tr>
+<tr>
+<td><strong>¿Cuándo evitar?</strong></td>
+<td>- Datos ruidosos con muchos outliers<br>- Problemas multiclase complejos<br>- Escalabilidad</td>
+</tr>
+<tr>
+<td><strong>Ventajas</strong></td>
+<td>- Precisión alta<br>- Efectivo en espacios de alta dimensión<br>- Robusto al overfitting</td>
+</tr>
+<tr>
+<td><strong>Desventajas</strong></td>
+<td>- Costoso en entrenamiento<br>- No produce probabilidades directamente<br>- Difícil de ajustar para multiclase</td>
+</tr>
+<tr>
+<td><strong>SVM vs. Regresión Logística</strong></td>
+<td>SVM se enfoca en el margen geométrico, RL en la probabilidad y entropía cruzada</td>
+</tr>
+<tr>
+<td><strong>Aplicación en regresión</strong></td>
+<td><strong>SVR</strong>: minimiza un margen tolerante alrededor del valor real</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%F0%9F%A7%AD-sugerencias-para-la-toma-de-decisiones">🧭 Sugerencias para la Toma de Decisiones</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Situación</strong></th>
+<th><strong>Recomendación</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pocos datos y gran separación entre clases</td>
+<td>Usa <strong>SVM con kernel lineal</strong></td>
+</tr>
+<tr>
+<td>Clasificación no lineal con patrones complejos</td>
+<td>Usa <strong>kernel RBF o polinomial</strong></td>
+</tr>
+<tr>
+<td>Hay muchos outliers en los datos</td>
+<td>Ajusta el parámetro <strong>C (menor valor)</strong> para permitir margen suave</td>
+</tr>
+<tr>
+<td>Dataset muy grande (&gt;10,000 muestras)</td>
+<td>Considera modelos más escalables: árboles, regresión logística</td>
+</tr>
+<tr>
+<td>Necesitas probabilidades</td>
+<td>Usa regresión logística o calibración externa (Platt scaling para SVM)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%F0%9F%93%8B-decision-trees">📋 Decision Trees</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Aspecto</strong></th>
+<th><strong>Descripción / Detalles</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Objetivo principal</strong></td>
+<td>Dividir el espacio de decisiones en regiones homogéneas mediante condiciones lógicas</td>
+</tr>
+<tr>
+<td><strong>Tipo de modelo</strong></td>
+<td>Modelo no paramétrico, interpretable, basado en reglas if-then</td>
+</tr>
+<tr>
+<td><strong>Aplicaciones comunes</strong></td>
+<td>Clasificación, regresión, segmentación, análisis exploratorio</td>
+</tr>
+<tr>
+<td><strong>Criterios de división</strong></td>
+<td>- Clasificación: <strong>Entropía</strong>, <strong>Índice Gini</strong><br>- Regresión: <strong>Varianza / MSE</strong></td>
+</tr>
+<tr>
+<td><strong>Componentes del árbol</strong></td>
+<td>- Nodo raíz, nodos internos (condiciones), hojas (predicciones)</td>
+</tr>
+<tr>
+<td><strong>Ventajas</strong></td>
+<td>- Muy interpretable<br>- No requiere escalado de features<br>- Maneja datos categóricos</td>
+</tr>
+<tr>
+<td><strong>Desventajas</strong></td>
+<td>- Sensible a pequeñas variaciones en los datos<br>- Propenso a <strong>overfitting</strong></td>
+</tr>
+<tr>
+<td><strong>¿Cuándo usar?</strong></td>
+<td>- Reglas de decisión claras<br>- Datos tabulares con relaciones no lineales</td>
+</tr>
+<tr>
+<td><strong>¿Cuándo evitar?</strong></td>
+<td>- Datos ruidosos<br>- Requiere alta generalización sin ensemble</td>
+</tr>
+<tr>
+<td><strong>Regularización</strong></td>
+<td>- Profundidad máxima (max_depth)<br>- Número mínimo de muestras por nodo (min_samples)</td>
+</tr>
+<tr>
+<td><strong>Detención del crecimiento</strong></td>
+<td>- Cuando se alcanza pureza total<br>- Cuando no hay ganancia significativa de información</td>
+</tr>
+<tr>
+<td><strong>Mejoras comunes</strong></td>
+<td>Usar <strong>pruning</strong> (poda), <strong>early stopping</strong>, o emplear ensembles como Random Forest o Boosting</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%F0%9F%A7%AD-sugerencias-para-la-toma-de-decisiones">🧭 Sugerencias para la Toma de Decisiones</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Situación</strong></th>
+<th><strong>Decisión recomendada</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Se requiere un modelo <strong>altamente interpretable</strong></td>
+<td>Usa Decision Tree con poda y profundidad limitada</td>
+</tr>
+<tr>
+<td>Modelo sobreajusta mucho</td>
+<td>Ajusta <strong>max_depth</strong>, <strong>min_samples_split</strong>, o usa <strong>Random Forest</strong></td>
+</tr>
+<tr>
+<td>Problema con muchas features irrelevantes</td>
+<td>Considera selección de características o usar árbol con regularización</td>
+</tr>
+<tr>
+<td>¿Métricas similares en divisiones posibles?</td>
+<td>Prefiere la que maximice <strong>ganancia de información</strong></td>
+</tr>
+<tr>
+<td>Clasificación binaria con clases balanceadas</td>
+<td>Usa <strong>índice Gini</strong> o <strong>entropía</strong>; ambos funcionan bien</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>
