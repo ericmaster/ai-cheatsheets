@@ -3,6 +3,10 @@
 <head>
 <title>apredizaje-supervisado.md</title>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script type="text/x-mathjax-config">
+	window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}
+</script>
 
 <style>
 /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
@@ -560,22 +564,22 @@ code {
 <tbody>
 <tr>
 <td>Accuracy</td>
-<td>$\frac{TP + TN}{TP + TN + FP + FN}$</td>
+<td>$$\frac{TP + TN}{TP + TN + FP + FN}$$</td>
 <td>Datasets balanceados</td>
 </tr>
 <tr>
 <td>Precision</td>
-<td>$\frac{TP}{TP + FP}$</td>
+<td>$$\frac{TP}{TP + FP}$$</td>
 <td>Alta penalización a falsos positivos</td>
 </tr>
 <tr>
 <td>Recall</td>
-<td>$\frac{TP}{TP + FN}$</td>
+<td>$$\frac{TP}{TP + FN}$$</td>
 <td>Alta penalización a falsos negativos</td>
 </tr>
 <tr>
 <td>F1-Score</td>
-<td>$2 \cdot \frac{precision \cdot recall}{precision + recall}$</td>
+<td>$$2 \cdot \frac{precision \cdot recall}{precision + recall}$$</td>
 <td>Compromiso entre precision y recall</td>
 </tr>
 <tr>
@@ -604,28 +608,28 @@ code {
 <tbody>
 <tr>
 <td>MSE</td>
-<td>$\frac{1}{n} \sum (y_i - \hat{y}_i)^2$</td>
+<td>$$\frac{1}{n} \sum (y_i - \hat{y}_i)^2$$</td>
 <td>Penaliza errores grandes, sensible a outliers</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td>RMSE</td>
-<td>$\sqrt{MSE}$</td>
+<td>$$\sqrt{MSE}$$</td>
 <td>Interpretable en unidades originales</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
 <td>MAE</td>
-<td>$\frac{1}{n} \sum |y_i - \hat{y}_i|$</td>
+<td>$$\frac{1}{n} \sum |y_i - \hat{y}_i|$$</td>
 <td>Más robusto ante outliers</td>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td>$R^2$ Score</td>
-<td>$1 - \frac{SS_{res}}{SS_{tot}}$</td>
+<td>$$R^2$$ Score</td>
+<td>$$1 - \frac{SS_{res}}{SS_{tot}}$$</td>
 <td>Proporción de varianza explicada</td>
 <td></td>
 <td></td>
